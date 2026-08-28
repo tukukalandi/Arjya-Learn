@@ -24,7 +24,7 @@ export function Login() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-50">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600"></div>
       </div>
     );
   }
@@ -33,7 +33,7 @@ export function Login() {
     <div className="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 font-sans">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="flex justify-center">
-          <BookOpen className="h-12 w-12 text-blue-600" />
+          <BookOpen className="h-12 w-12 text-red-600" />
         </div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-slate-900">
           Admin Portal Login
@@ -61,7 +61,7 @@ export function Login() {
           <div>
             <button
               onClick={handleLogin}
-              className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+              className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors"
             >
               Sign in with Google
             </button>
@@ -82,7 +82,7 @@ export function Login() {
             <div className="mt-6 flex justify-center">
               <a
                 href="/"
-                className="text-sm font-medium text-blue-600 hover:text-blue-500"
+                className="text-sm font-medium text-red-600 hover:text-red-500"
               >
                 &larr; Back to Home
               </a>

@@ -21,32 +21,32 @@ export function Home() {
   return (
     <div>
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-700 to-indigo-800 text-white py-16 px-4 sm:px-6 lg:px-8 text-center shrink-0">
+      <section className="bg-gradient-to-r from-red-700 to-red-900 text-white py-16 px-4 sm:px-6 lg:px-8 text-center shrink-0">
         <div className="max-w-4xl mx-auto flex flex-col items-center justify-center">
           <h1 className="text-3xl md:text-4xl font-bold mb-3 tracking-tight">
             Study Smarter. Learn Better. Succeed Together.
           </h1>
-          <p className="text-blue-100 text-base mb-8 max-w-2xl mx-auto">
+          <p className="text-red-100 text-base mb-8 max-w-2xl mx-auto">
             Free and organized study materials for Classes 1–10 and Olympiad examinations.
           </p>
           
-          <form onSubmit={handleSearch} className="flex w-full max-w-xl bg-white rounded-lg shadow-xl overflow-hidden p-1.5 mx-auto">
+          <form onSubmit={handleSearch} className="flex w-full max-w-xl bg-white dark:bg-slate-900 rounded-lg shadow-xl overflow-hidden p-1.5 mx-auto">
             <input
               type="text"
               placeholder="Search by Class, Subject, or Topic..."
-              className="flex-1 px-4 text-slate-800 outline-none text-sm w-full"
+              className="flex-1 px-4 text-slate-800 dark:text-slate-100 outline-none text-sm w-full"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
             <button
               type="submit"
-              className="bg-blue-600 px-6 py-2.5 rounded-md font-semibold text-sm hover:bg-blue-700 transition-all whitespace-nowrap hidden sm:block"
+              className="bg-red-600 px-6 py-2.5 rounded-md font-semibold text-sm hover:bg-red-700 transition-all whitespace-nowrap hidden sm:block"
             >
               Search Materials
             </button>
             <button
               type="submit"
-              className="bg-blue-600 px-4 py-2 rounded-md font-semibold text-sm hover:bg-blue-700 transition-all sm:hidden"
+              className="bg-red-600 px-4 py-2 rounded-md font-semibold text-sm hover:bg-red-700 transition-all sm:hidden"
             >
               <Search className="w-4 h-4" />
             </button>
@@ -55,11 +55,11 @@ export function Home() {
       </section>
 
       {/* Classes Section */}
-      <section className="py-12 bg-[#F8FAFC] px-4 sm:px-6 lg:px-8">
+      <section className="py-12 bg-[#F8FAFC] dark:bg-slate-950 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold text-slate-800">Study Materials by Class</h2>
-            <Link to="/classes" className="text-sm text-blue-600 font-semibold hover:underline flex items-center">
+            <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Study Materials by Class</h2>
+            <Link to="/classes" className="text-sm text-red-600 dark:text-red-500 font-semibold hover:underline flex items-center">
               View All Classes
             </Link>
           </div>
@@ -85,14 +85,14 @@ export function Home() {
       </section>
 
       {/* Material Types Section */}
-      <section className="py-12 bg-white px-4 sm:px-6 lg:px-8 border-t border-slate-200">
+      <section className="py-12 bg-white dark:bg-slate-900 px-4 sm:px-6 lg:px-8 border-t border-slate-200 dark:border-slate-800 transition-colors duration-200">
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
-              <span className="w-1.5 h-6 bg-purple-600 rounded-full"></span> 
+            <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+              <span className="w-1.5 h-6 bg-yellow-500 rounded-full"></span> 
               Study Materials by Type
             </h2>
-            <Link to="/materials" className="text-sm text-blue-600 font-semibold hover:underline">
+            <Link to="/materials" className="text-sm text-red-600 dark:text-red-500 font-semibold hover:underline">
               View All
             </Link>
           </div>
@@ -118,19 +118,19 @@ export function Home() {
       </section>
 
       {/* Olympiad Highlight */}
-      <section className="py-12 bg-white px-4 sm:px-6 lg:px-8">
+      <section className="py-12 bg-white dark:bg-slate-900 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8">
           <div className="md:w-1/2">
-            <h2 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-              <span className="w-1.5 h-6 bg-orange-500 rounded-full"></span> 
+            <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-4 flex items-center gap-2">
+              <span className="w-1.5 h-6 bg-yellow-500 rounded-full"></span> 
               Prepare for Olympiads
             </h2>
-            <p className="text-sm text-slate-600 mb-6 leading-relaxed max-w-lg">
+            <p className="text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed max-w-lg">
               Get access to previous year papers, mock tests, and specialized study notes for Mathematics, Science, English, and other competitive Olympiad examinations.
             </p>
             <Link
               to="/olympiad"
-              className="inline-flex items-center px-5 py-2 bg-slate-900 text-white text-sm font-semibold rounded-md hover:bg-slate-800 transition-colors shadow-md"
+              className="inline-flex items-center px-5 py-2 bg-slate-900 dark:bg-slate-800 text-white text-sm font-semibold rounded-md hover:bg-slate-800 dark:hover:bg-slate-700 transition-colors shadow-md"
             >
               Explore Olympiad Materials <ArrowRight className="ml-2 w-4 h-4" />
             </Link>

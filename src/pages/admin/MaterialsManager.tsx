@@ -80,7 +80,7 @@ export function MaterialsManager() {
         <h1 className="text-2xl font-bold text-slate-900">Study Materials</h1>
         <Link
           to="/admin/materials/add"
-          className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+          className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700"
         >
           <Plus className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
           Add New Material
@@ -95,7 +95,7 @@ export function MaterialsManager() {
             </div>
             <input
               type="text"
-              className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 sm:text-sm border-slate-300 rounded-md py-2 px-3 border outline-none"
+              className="focus:ring-red-500 focus:border-red-500 block w-full pl-10 sm:text-sm border-slate-300 rounded-md py-2 px-3 border outline-none"
               placeholder="Search materials..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -118,7 +118,7 @@ export function MaterialsManager() {
               {loading ? (
                 <tr>
                   <td colSpan={5} className="px-6 py-10 text-center">
-                    <div className="flex justify-center"><div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div></div>
+                    <div className="flex justify-center"><div className="animate-spin rounded-full h-6 w-6 border-b-2 border-red-600"></div></div>
                   </td>
                 </tr>
               ) : filteredMaterials.length === 0 ? (
@@ -141,7 +141,7 @@ export function MaterialsManager() {
                         <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-800 w-fit">
                           {material.classLevel}
                         </span>
-                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-50 text-blue-700 w-fit">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-50 text-red-700 w-fit">
                           {material.subject}
                         </span>
                       </div>
@@ -164,7 +164,7 @@ export function MaterialsManager() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex items-center justify-end gap-3">
-                        <Link to={`/admin/materials/edit/${material.id}`} className="text-blue-600 hover:text-blue-900">
+                        <Link to={`/admin/materials/edit/${material.id}`} className="text-red-600 hover:text-red-900">
                           <Edit className="h-4 w-4" />
                         </Link>
                         <button onClick={() => handleDelete(material.id!)} className="text-red-600 hover:text-red-900">

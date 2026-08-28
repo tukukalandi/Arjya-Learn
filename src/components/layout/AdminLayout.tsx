@@ -49,10 +49,10 @@ export function AdminLayout({ children }: { children: ReactNode }) {
       )}>
         <div className="h-16 flex items-center justify-between px-6 bg-[#0B1120] border-b border-slate-800">
           <Link to="/admin" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center">
+            <div className="w-8 h-8 bg-red-600 rounded flex items-center justify-center">
               <span className="text-white font-bold text-xl">E</span>
             </div>
-            <span className="font-bold text-lg text-white">Admin<span className="text-blue-500">Portal</span></span>
+            <span className="font-bold text-lg text-white">Admin<span className="text-red-500">Portal</span></span>
           </Link>
           <button onClick={() => setIsSidebarOpen(false)} className="md:hidden text-slate-400 hover:text-white">
             <X className="h-5 w-5" />
@@ -70,11 +70,11 @@ export function AdminLayout({ children }: { children: ReactNode }) {
                   className={cn(
                     "flex items-center px-3 py-2 rounded-lg text-sm font-semibold transition-all group",
                     isActive 
-                      ? "bg-blue-600/10 text-blue-500" 
+                      ? "bg-red-600/10 text-red-500" 
                       : "text-slate-400 hover:bg-slate-800/50 hover:text-slate-200"
                   )}
                 >
-                  <item.icon className={cn("mr-3 h-5 w-5 transition-colors", isActive ? "text-blue-500" : "text-slate-500 group-hover:text-slate-400")} />
+                  <item.icon className={cn("mr-3 h-5 w-5 transition-colors", isActive ? "text-red-500" : "text-slate-500 group-hover:text-slate-400")} />
                   {item.name}
                 </Link>
               );
@@ -83,7 +83,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
           
           <div className="p-4 mx-4 mt-auto bg-slate-900/50 rounded-xl border border-slate-800">
             <div className="flex items-center mb-4">
-              <div className="w-9 h-9 rounded-md bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
+              <div className="w-9 h-9 rounded-md bg-gradient-to-br from-red-500 to-orange-600 flex items-center justify-center text-white font-bold text-sm shadow-md">
                 {user?.email?.[0].toUpperCase()}
               </div>
               <div className="ml-3 overflow-hidden">
@@ -117,7 +117,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
             <span className="font-bold text-slate-800 md:hidden">Admin Portal</span>
           </div>
           <div className="flex items-center ml-auto">
-            <Link to="/" className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-md transition-colors">
+            <Link to="/" className="text-sm font-semibold text-red-600 hover:text-red-700 flex items-center gap-2 bg-red-50 px-4 py-2 rounded-md transition-colors">
               <BookOpen className="h-4 w-4" />
               <span className="hidden sm:inline">Return to Website</span>
               <span className="sm:hidden">Website</span>

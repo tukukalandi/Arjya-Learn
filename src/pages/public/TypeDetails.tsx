@@ -21,18 +21,18 @@ export function TypeDetails() {
   ];
 
   return (
-    <div className="bg-[#F8FAFC] min-h-screen py-10 px-4 sm:px-6 lg:px-8">
+    <div className="bg-[#F8FAFC] dark:bg-slate-950 min-h-screen py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <button onClick={() => navigate(-1)} className="inline-flex items-center text-[11px] font-bold text-slate-500 hover:text-blue-600 mb-6 transition-colors uppercase tracking-wide">
+        <button onClick={() => navigate(-1)} className="inline-flex items-center text-[11px] font-bold text-slate-500 dark:text-slate-400 hover:text-red-600 mb-6 transition-colors uppercase tracking-wide">
           <ArrowLeft className="w-4 h-4 mr-1.5" /> Back
         </button>
         
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">
-            <span className="w-1.5 h-6 bg-blue-600 rounded-full"></span> 
+          <h1 className="text-2xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+            <span className="w-1.5 h-6 bg-red-600 rounded-full"></span> 
             {materialType} by Class
           </h1>
-          <p className="mt-2 text-sm text-slate-600 ml-3.5">
+          <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 ml-3.5">
             Select a class to view all {materialType} files.
           </p>
         </div>
@@ -49,7 +49,7 @@ export function TypeDetails() {
               </div>
               <h2 className="relative z-10 font-bold text-xl mb-2 text-white">{cls.name}</h2>
               <p className="relative z-10 text-white/80 text-xs mb-4 flex-1">{cls.desc}</p>
-              <div className="relative z-10 text-white text-[11px] font-bold uppercase tracking-wider bg-white/20 px-3 py-1.5 rounded w-full text-center hover:bg-white/30 transition-colors mt-auto">
+              <div className="relative z-10 text-white text-[11px] font-bold uppercase tracking-wider bg-white dark:bg-slate-900/20 px-3 py-1.5 rounded w-full text-center hover:bg-white dark:bg-slate-900/30 transition-colors mt-auto">
                 View Files
               </div>
             </Link>

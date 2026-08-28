@@ -240,7 +240,7 @@ export function MaterialForm() {
   };
 
   if (loading) {
-    return <div className="flex justify-center p-10"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div></div>;
+    return <div className="flex justify-center p-10"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div></div>;
   }
 
   return (
@@ -264,52 +264,52 @@ export function MaterialForm() {
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div className="sm:col-span-2">
               <label className="block text-sm font-medium text-slate-700">Title <span className="text-red-500">*</span></label>
-              <input required type="text" name="title" value={formData.title} onChange={handleChange} className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
+              <input required type="text" name="title" value={formData.title} onChange={handleChange} className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm" />
             </div>
 
             <div className="sm:col-span-2">
               <label className="block text-sm font-medium text-slate-700">Description</label>
-              <textarea name="description" rows={3} value={formData.description} onChange={handleChange} className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
+              <textarea name="description" rows={3} value={formData.description} onChange={handleChange} className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm" />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-slate-700">Class <span className="text-red-500">*</span></label>
-              <select required name="classLevel" value={formData.classLevel} onChange={handleChange} className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+              <select required name="classLevel" value={formData.classLevel} onChange={handleChange} className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
                 {classes.map(c => <option key={c} value={c}>{c}</option>)}
               </select>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-slate-700">Subject <span className="text-red-500">*</span></label>
-              <select required name="subject" value={formData.subject} onChange={handleChange} className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+              <select required name="subject" value={formData.subject} onChange={handleChange} className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
                 {subjects.map(s => <option key={s} value={s}>{s}</option>)}
               </select>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-slate-700">Material Type <span className="text-red-500">*</span></label>
-              <select required name="materialType" value={formData.materialType} onChange={handleChange} className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+              <select required name="materialType" value={formData.materialType} onChange={handleChange} className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
                 {materialTypes.map(t => <option key={t} value={t}>{t}</option>)}
               </select>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-slate-700">Language</label>
-              <select name="language" value={formData.language} onChange={handleChange} className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+              <select name="language" value={formData.language} onChange={handleChange} className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
                 {languages.map(l => <option key={l} value={l}>{l}</option>)}
               </select>
             </div>
             
             <div>
               <label className="block text-sm font-medium text-slate-700">Exam Type</label>
-              <select name="examType" value={formData.examType} onChange={handleChange} className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+              <select name="examType" value={formData.examType} onChange={handleChange} className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm">
                 {examTypes.map(e => <option key={e} value={e}>{e}</option>)}
               </select>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-slate-700">Exam Name (e.g. IMO)</label>
-              <input type="text" name="examName" value={formData.examName} onChange={handleChange} className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
+              <input type="text" name="examName" value={formData.examName} onChange={handleChange} className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm" />
             </div>
           </div>
         </div>
@@ -335,7 +335,7 @@ export function MaterialForm() {
                   <button
                     type="button"
                     onClick={requestDriveAccess}
-                    className="inline-flex items-center justify-center px-4 py-2 border border-slate-300 shadow-sm text-sm font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    className="inline-flex items-center justify-center px-4 py-2 border border-slate-300 shadow-sm text-sm font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                   >
                     <Upload className="mr-2 h-4 w-4" />
                     Connect Google Drive
@@ -343,7 +343,7 @@ export function MaterialForm() {
                 ) : (
                   <label
                     htmlFor="file-upload"
-                    className={`inline-flex items-center justify-center px-4 py-2 border border-slate-300 shadow-sm text-sm font-medium rounded-md ${uploading ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'text-slate-700 bg-white hover:bg-slate-50 cursor-pointer'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
+                    className={`inline-flex items-center justify-center px-4 py-2 border border-slate-300 shadow-sm text-sm font-medium rounded-md ${uploading ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'text-slate-700 bg-white hover:bg-slate-50 cursor-pointer'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500`}
                   >
                     <Upload className="mr-2 h-4 w-4" />
                     {uploading ? 'Uploading...' : 'Select & Upload File'}
@@ -353,7 +353,7 @@ export function MaterialForm() {
                 {uploading && (
                   <div className="flex-1 max-w-xs">
                     <div className="w-full bg-slate-200 rounded-full h-2.5">
-                      <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${uploadProgress}%` }}></div>
+                      <div className="bg-red-600 h-2.5 rounded-full" style={{ width: `${uploadProgress}%` }}></div>
                     </div>
                     <span className="text-xs text-slate-500 mt-1 block">{uploadProgress}% Complete</span>
                   </div>
@@ -367,18 +367,18 @@ export function MaterialForm() {
 
             <div className="sm:col-span-2">
               <label className="block text-sm font-medium text-slate-700">Google Drive URL <span className="text-red-500">*</span></label>
-              <input required type="url" name="googleDriveUrl" value={formData.googleDriveUrl} onChange={handleDriveUrlChange} placeholder="https://drive.google.com/file/d/..." className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
+              <input required type="url" name="googleDriveUrl" value={formData.googleDriveUrl} onChange={handleDriveUrlChange} placeholder="https://drive.google.com/file/d/..." className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm" />
               <p className="mt-1 text-xs text-slate-500">Auto-filled after upload, or you can paste an existing shareable link.</p>
             </div>
             
             <div>
               <label className="block text-sm font-medium text-slate-700">Google Drive File ID</label>
-              <input type="text" name="googleDriveFileId" value={formData.googleDriveFileId} onChange={handleChange} placeholder="Auto-extracted if possible" className="mt-1 block w-full rounded-md border-slate-300 bg-slate-50 border py-2 px-3 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
+              <input type="text" name="googleDriveFileId" value={formData.googleDriveFileId} onChange={handleChange} placeholder="Auto-extracted if possible" className="mt-1 block w-full rounded-md border-slate-300 bg-slate-50 border py-2 px-3 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm" />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-slate-700">Display File Name</label>
-              <input type="text" name="fileName" value={formData.fileName} onChange={handleChange} placeholder="e.g. Math_Model_Paper_2026.pdf" className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
+              <input type="text" name="fileName" value={formData.fileName} onChange={handleChange} placeholder="e.g. Math_Model_Paper_2026.pdf" className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm" />
             </div>
           </div>
         </div>
@@ -388,7 +388,7 @@ export function MaterialForm() {
           <div className="grid grid-cols-1 gap-6">
             <div>
               <label className="block text-sm font-medium text-slate-700">Tags (comma separated)</label>
-              <input type="text" value={formData.tags?.join(', ') || ''} onChange={handleTagsChange} placeholder="algebra, geometry, mock test" className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" />
+              <input type="text" value={formData.tags?.join(', ') || ''} onChange={handleTagsChange} placeholder="algebra, geometry, mock test" className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm" />
             </div>
           </div>
         </div>
@@ -397,7 +397,7 @@ export function MaterialForm() {
           <button
             type="button"
             onClick={() => navigate('/admin/materials')}
-            className="bg-white py-2 px-4 border border-slate-300 rounded-md shadow-sm text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="bg-white py-2 px-4 border border-slate-300 rounded-md shadow-sm text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
           >
             Cancel
           </button>
@@ -405,7 +405,7 @@ export function MaterialForm() {
             type="button"
             onClick={(e) => handleSubmit(e, false)}
             disabled={saving}
-            className="inline-flex justify-center py-2 px-4 border border-slate-300 shadow-sm text-sm font-medium rounded-md text-slate-700 bg-slate-100 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+            className="inline-flex justify-center py-2 px-4 border border-slate-300 shadow-sm text-sm font-medium rounded-md text-slate-700 bg-slate-100 hover:bg-slate-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
           >
             Save as Draft
           </button>
@@ -413,7 +413,7 @@ export function MaterialForm() {
             type="button"
             onClick={(e) => handleSubmit(e, true)}
             disabled={saving}
-            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+            className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
           >
             {saving ? 'Saving...' : 'Publish'}
           </button>

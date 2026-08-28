@@ -250,17 +250,17 @@ export function Dashboard() {
   if (loading) {
     return (
       <div className="flex h-64 items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
       </div>
     );
   }
 
   const statCards = [
-    { name: 'Total Materials', value: stats.total, icon: FileText, color: 'text-blue-600', bg: 'bg-blue-100' },
+    { name: 'Total Materials', value: stats.total, icon: FileText, color: 'text-red-600', bg: 'bg-red-100' },
     { name: 'Published', value: stats.published, icon: BookOpen, color: 'text-green-600', bg: 'bg-green-100' },
     { name: 'Drafts', value: stats.drafts, icon: Clock, color: 'text-amber-600', bg: 'bg-amber-100' },
     { name: 'Total Views', value: stats.totalViews, icon: Eye, color: 'text-purple-600', bg: 'bg-purple-100' },
-    { name: 'Total Downloads', value: stats.totalDownloads, icon: Download, color: 'text-blue-600', bg: 'bg-blue-100' },
+    { name: 'Total Downloads', value: stats.totalDownloads, icon: Download, color: 'text-red-600', bg: 'bg-red-100' },
   ];
 
   return (
@@ -270,7 +270,7 @@ export function Dashboard() {
         <button 
           onClick={handleSeedData}
           disabled={seeding}
-          className="inline-flex items-center px-4 py-2 border border-slate-300 shadow-sm text-sm font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+          className="inline-flex items-center px-4 py-2 border border-slate-300 shadow-sm text-sm font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
         >
           <Database className="mr-2 h-4 w-4 text-slate-400" />
           {seeding ? 'Seeding...' : 'Seed Demo Data'}
@@ -296,7 +296,7 @@ export function Dashboard() {
       <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
         <div className="px-6 py-5 border-b border-slate-100 flex justify-between items-center">
           <h2 className="text-lg font-semibold text-slate-900">Recent Materials</h2>
-          <Link to="/admin/materials" className="text-sm font-medium text-blue-600 hover:text-blue-700">
+          <Link to="/admin/materials" className="text-sm font-medium text-red-600 hover:text-red-700">
             View All
           </Link>
         </div>
@@ -320,7 +320,7 @@ export function Dashboard() {
                   }`}>
                     {material.isPublished ? 'Published' : 'Draft'}
                   </span>
-                  <Link to={`/admin/materials/edit/${material.id}`} className="text-blue-600 hover:text-blue-900 text-sm font-medium">
+                  <Link to={`/admin/materials/edit/${material.id}`} className="text-red-600 hover:text-red-900 text-sm font-medium">
                     Edit
                   </Link>
                 </div>
