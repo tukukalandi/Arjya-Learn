@@ -8,6 +8,7 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { Home } from './pages/public/Home';
 import { Classes } from './pages/public/Classes';
 import { ClassDetails } from './pages/public/ClassDetails';
+import { TypeDetails } from './pages/public/TypeDetails';
 import { Olympiad } from './pages/public/Olympiad';
 import { Materials } from './pages/public/Materials';
 import { MaterialDetails } from './pages/public/MaterialDetails';
@@ -29,6 +30,7 @@ export default function App() {
           <Route path="/" element={<PublicLayout><Home /></PublicLayout>} />
           <Route path="/classes" element={<PublicLayout><Classes /></PublicLayout>} />
           <Route path="/class/:className" element={<PublicLayout><ClassDetails /></PublicLayout>} />
+          <Route path="/type/:materialType" element={<PublicLayout><TypeDetails /></PublicLayout>} />
           <Route path="/olympiad" element={<PublicLayout><Olympiad /></PublicLayout>} />
           <Route path="/materials" element={<PublicLayout><Materials /></PublicLayout>} />
           <Route path="/material/:id" element={<PublicLayout><MaterialDetails /></PublicLayout>} />

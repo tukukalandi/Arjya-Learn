@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { doc, getDoc, updateDoc, increment } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { StudyMaterial } from '../../types';
@@ -8,6 +8,7 @@ import { format } from 'date-fns';
 
 export function MaterialDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [material, setMaterial] = useState<StudyMaterial | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -65,9 +66,9 @@ export function MaterialDetails() {
           <FileText className="w-16 h-16 text-slate-300 mx-auto mb-4" />
           <h2 className="text-xl font-bold text-slate-900 mb-2">{error}</h2>
           <p className="text-slate-500 mb-6">The study material you are looking for does not exist or has been removed.</p>
-          <Link to="/materials" className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700">
-            <ArrowLeft className="w-4 h-4 mr-2" /> Back to Materials
-          </Link>
+          <button onClick={() => navigate(-1)} className="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700">
+            <ArrowLeft className="w-4 h-4 mr-2" /> Back
+          </button>
         </div>
       </div>
     );
@@ -76,9 +77,9 @@ export function MaterialDetails() {
   return (
     <div className="bg-[#F8FAFC] min-h-screen py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        <Link to="/materials" className="inline-flex items-center text-[11px] font-bold text-slate-500 hover:text-blue-600 mb-6 transition-colors uppercase tracking-wide">
-          <ArrowLeft className="w-4 h-4 mr-1.5" /> Back to Search
-        </Link>
+        <button onClick={() => navigate(-1)} className="inline-flex items-center text-[11px] font-bold text-slate-500 hover:text-blue-600 mb-6 transition-colors uppercase tracking-wide">
+          <ArrowLeft className="w-4 h-4 mr-1.5" /> Back
+        </button>
         
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
           <div className="p-8 sm:p-10 border-b border-slate-100 bg-gradient-to-r from-blue-700 to-indigo-800 text-white">

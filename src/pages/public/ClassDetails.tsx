@@ -1,10 +1,11 @@
 import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { CARD_COLORS, TEXT_COLORS, BADGE_COLORS } from '../../utils/colors';
 import { ArrowLeft, Book } from 'lucide-react';
 
 export function ClassDetails() {
   const { className } = useParams<{ className: string }>();
+  const navigate = useNavigate();
   
   const materialTypes = [
     'All Materials', 'Chapter', 'Study Notes', 'Chapter Notes', 'Question Papers', 
@@ -16,10 +17,9 @@ export function ClassDetails() {
     <div className="bg-[#F8FAFC] min-h-screen py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         
-        <Link to="/" className="inline-flex items-center text-sm font-semibold text-blue-600 hover:underline mb-6">
-          <ArrowLeft className="w-4 h-4 mr-1" />
-          Back to Home
-        </Link>
+        <button onClick={() => navigate(-1)} className="inline-flex items-center text-[11px] font-bold text-slate-500 hover:text-blue-600 mb-6 transition-colors uppercase tracking-wide">
+          <ArrowLeft className="w-4 h-4 mr-1.5" /> Back
+        </button>
         
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-slate-800 flex items-center gap-2">

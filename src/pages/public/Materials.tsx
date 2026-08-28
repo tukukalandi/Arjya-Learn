@@ -1,14 +1,15 @@
 import React from "react";
 import { useState, useEffect, useMemo } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { StudyMaterial } from '../../types';
-import { FileText, Filter, Book, Search, Download } from 'lucide-react';
+import { FileText, Filter, Book, Search, Download, ArrowLeft } from 'lucide-react';
 import { format } from 'date-fns';
 import { CARD_COLORS, BUTTON_COLORS, TEXT_COLORS, BADGE_COLORS } from '../../utils/colors';
 
 export function Materials() {
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [materials, setMaterials] = useState<StudyMaterial[]>([]);
   const [loading, setLoading] = useState(true);
@@ -93,9 +94,15 @@ export function Materials() {
   };
 
   return (
-    <div className="bg-[#F8FAFC] min-h-screen py-8 px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-6">
-      
-      {/* Sidebar Filters */}
+    <div className="bg-[#F8FAFC] min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto mb-4">
+        <button onClick={() => navigate(-1)} className="inline-flex items-center text-[11px] font-bold text-slate-500 hover:text-blue-600 transition-colors uppercase tracking-wide">
+          <ArrowLeft className="w-4 h-4 mr-1.5" /> Back
+        </button>
+      </div>
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6">
+        
+        {/* Sidebar Filters */}
       <div className="w-full md:w-64 flex-shrink-0">
         <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm sticky top-24">
           <div className="flex items-center gap-2 font-bold text-slate-800 mb-5 text-sm uppercase tracking-wider">
@@ -210,6 +217,7 @@ export function Materials() {
           </div>
         )}
       </div>
+    </div>
     </div>
   );
 }
