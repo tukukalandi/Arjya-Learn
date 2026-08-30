@@ -8,7 +8,8 @@ import {
   LogOut, 
   Menu, 
   X,
-  BookOpen
+  BookOpen,
+  Video
 } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
@@ -24,6 +25,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
     { name: 'Study Materials', href: '/admin/materials', icon: FileText },
     { name: 'Categories', href: '/admin/categories', icon: Tags },
+    { name: 'Videos Corner', href: '/admin/videos', icon: Video },
     { name: 'Admins', href: '/admin/admins', icon: Users },
   ];
 

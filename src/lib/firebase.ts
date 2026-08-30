@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
   projectId: "gen-lang-client-0417841512",
@@ -19,3 +20,7 @@ export const auth = getAuth(app);
 
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app, "ai-studio-5a950ff3-89b9-40a0-beb5-a8238168aa4b");
+
+// Initialize Cloud Storage
+export const storage = getStorage(app);
+

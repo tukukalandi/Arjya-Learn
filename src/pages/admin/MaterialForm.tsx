@@ -69,8 +69,9 @@ export function MaterialForm() {
 
   useEffect(() => {
     // Initialize Google Identity Services
-    if (window.google?.accounts?.oauth2) {
-      tokenClientRef.current = window.google.accounts.oauth2.initTokenClient({
+    const g = (window as any).google;
+    if (g?.accounts?.oauth2) {
+      tokenClientRef.current = g.accounts.oauth2.initTokenClient({
         client_id: '806441051802-9m8ko9s8uu98c02u1qpbilusmstilemq.apps.googleusercontent.com',
         scope: 'https://www.googleapis.com/auth/drive.file',
         callback: (response: any) => {

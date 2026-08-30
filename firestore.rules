@@ -9,12 +9,18 @@ service cloud.firestore {
       allow read: if resource.data.isPublished == true || isAdmin();
       allow write: if isAdmin();
     }
+
     match /classes/{document=**} { allow read: if true; allow write: if isAdmin(); }
     match /subjects/{document=**} { allow read: if true; allow write: if isAdmin(); }
     match /exams/{document=**} { allow read: if true; allow write: if isAdmin(); }
     match /materialTypes/{document=**} { allow read: if true; allow write: if isAdmin(); }
     match /academicYears/{document=**} { allow read: if true; allow write: if isAdmin(); }
     match /categories/{document=**} { allow read: if true; allow write: if isAdmin(); }
+    
+    match /videos/{document=**} { 
+      allow read: if true; 
+      allow write: if isAdmin(); 
+    }
     
     match /admins/{userId} {
       allow read: if true; 

@@ -12,6 +12,7 @@ import { TypeDetails } from './pages/public/TypeDetails';
 import { Olympiad } from './pages/public/Olympiad';
 import { Materials } from './pages/public/Materials';
 import { MaterialDetails } from './pages/public/MaterialDetails';
+import { VideoCorner } from './pages/public/VideoCorner';
 import { Login } from './pages/Login';
 
 // Admin Pages
@@ -20,6 +21,7 @@ import { MaterialsManager } from './pages/admin/MaterialsManager';
 import { MaterialForm } from './pages/admin/MaterialForm';
 import { CategoriesManager } from './pages/admin/CategoriesManager';
 import { AdminsManager } from './pages/admin/AdminsManager';
+import { VideosManager } from './pages/admin/VideosManager';
 
 export default function App() {
   return (
@@ -34,6 +36,7 @@ export default function App() {
           <Route path="/olympiad" element={<PublicLayout><Olympiad /></PublicLayout>} />
           <Route path="/materials" element={<PublicLayout><Materials /></PublicLayout>} />
           <Route path="/material/:id" element={<PublicLayout><MaterialDetails /></PublicLayout>} />
+          <Route path="/video-corner/*" element={<PublicLayout><VideoCorner /></PublicLayout>} />
           <Route path="/login" element={<Login />} />
 
           {/* Admin Routes */}
@@ -60,6 +63,11 @@ export default function App() {
           <Route path="/admin/categories" element={
             <ProtectedRoute>
               <AdminLayout><CategoriesManager /></AdminLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/videos" element={
+            <ProtectedRoute>
+              <AdminLayout><VideosManager /></AdminLayout>
             </ProtectedRoute>
           } />
           <Route path="/admin/admins" element={

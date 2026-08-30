@@ -21,3 +21,19 @@ export interface StudyMaterial {
   viewCount: number;
   tags: string[];
 }
+
+export interface Video {
+  id?: string;
+  categoryType: 'Class' | 'Competitive Exam' | 'Olympiad Exam';
+  classOrExam: string;
+  subject: string;
+  chapter: string;
+  title: string;
+  videoUrl: string; // Storage URL or YouTube URL
+  thumbnailUrl?: string;
+  duration?: string;
+  description?: string;
+  status: 'published' | 'draft';
+  createdAt: string;
+  updatedAt?: string;
+}

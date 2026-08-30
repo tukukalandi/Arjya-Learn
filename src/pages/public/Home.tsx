@@ -1,5 +1,4 @@
-import React from "react";
-import { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, Book, Trophy, FileText, ArrowRight } from 'lucide-react';
 import { CARD_COLORS, BUTTON_COLORS, TEXT_COLORS, BADGE_COLORS } from '../../utils/colors';
@@ -148,6 +147,7 @@ export function Home() {
           </div>
         </div>
       </section>
+
     </div>
   );
 }

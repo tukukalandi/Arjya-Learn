@@ -3,6 +3,8 @@ import { ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { BookOpen, Menu, X, Search, UserCircle, Calendar, Clock, Globe, Moon, Sun, ChevronDown } from 'lucide-react';
 
+import { Footer } from './Footer';
+
 export function PublicLayout({ children }: { children: ReactNode }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -138,6 +140,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
           <Link to="/classes" className="hover:text-red-600 transition-colors">Classes</Link>
           <Link to="/olympiad" className="hover:text-red-600 transition-colors">Olympiad</Link>
           <Link to="/materials" className="hover:text-red-600 transition-colors">Study Materials</Link>
+          <Link to="/video-corner" className="hover:text-red-600 transition-colors">Video Corner</Link>
         </nav>
 
         <div className="hidden md:flex items-center gap-4">
@@ -171,6 +174,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
             <Link to="/classes" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-red-600 dark:hover:text-red-500">Classes</Link>
             <Link to="/olympiad" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-red-600 dark:hover:text-red-500">Olympiad</Link>
             <Link to="/materials" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-red-600 dark:hover:text-red-500">Study Materials</Link>
+            <Link to="/video-corner" onClick={() => setIsMenuOpen(false)} className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-red-600 dark:hover:text-red-500">Video Corner</Link>
             <form onSubmit={(e) => { handleSearch(e); setIsMenuOpen(false); }} className="px-3 py-2">
               <div className="relative">
                 <input
@@ -190,14 +194,7 @@ export function PublicLayout({ children }: { children: ReactNode }) {
       <main className="flex-1 flex flex-col">
         {children}
       </main>
-      <footer className="h-16 md:h-10 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between px-4 sm:px-8 text-[11px] text-slate-500 dark:text-slate-400 shrink-0 uppercase tracking-wide font-semibold mt-auto py-2 md:py-0 transition-colors duration-200">
-        <div>© 2026 EDUPORTAL. ALL RIGHTS RESERVED.</div>
-        <div className="flex items-center gap-6 mt-2 md:mt-0">
-          <Link to="#" className="hover:text-red-600 dark:hover:text-red-500 transition-colors">Privacy Policy</Link>
-          <Link to="#" className="hover:text-red-600 dark:hover:text-red-500 transition-colors">Terms of Service</Link>
-          <Link to="#" className="hover:text-red-600 dark:hover:text-red-500 transition-colors">Contact</Link>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
