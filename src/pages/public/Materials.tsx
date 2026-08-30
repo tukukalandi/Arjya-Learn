@@ -79,10 +79,10 @@ export function Materials() {
         m.description?.toLowerCase().includes(searchQuery.toLowerCase()) ||
         m.tags?.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()));
       
-      const matchClass = classFilter === 'All' || m.classLevel === classFilter;
-      const matchSubject = subjectFilter === 'All' || m.subject === subjectFilter;
-      const matchExam = examFilter === 'All' || m.examType === examFilter;
-      const matchType = typeFilter === 'All' || m.materialType === typeFilter || (typeFilter === 'Chapter' && m.materialType === 'Question Paper');
+      const matchClass = classFilter === 'All' || m.classLevel?.trim().toLowerCase() === classFilter.trim().toLowerCase();
+      const matchSubject = subjectFilter === 'All' || m.subject?.trim().toLowerCase() === subjectFilter.trim().toLowerCase();
+      const matchExam = examFilter === 'All' || m.examType?.trim().toLowerCase() === examFilter.trim().toLowerCase();
+      const matchType = typeFilter === 'All' || m.materialType?.trim().toLowerCase() === typeFilter.trim().toLowerCase() || (typeFilter === 'Chapter' && m.materialType === 'Question Paper');
 
       return matchSearch && matchClass && matchSubject && matchExam && matchType;
     });
@@ -190,10 +190,10 @@ export function Materials() {
             {filteredMaterials.map((material, idx) => (
               <div key={material.id} className={`relative overflow-hidden rounded-sm p-6 flex flex-col h-full shadow-sm hover:shadow-md transition-all group ${CARD_COLORS[idx % CARD_COLORS.length]}`}>
                 <div className="flex flex-wrap gap-2 mb-3 relative z-10">
-                  <span className="px-2 py-0.5 text-[10px] uppercase font-bold rounded bg-white dark:bg-slate-900/20 text-white">
+                  <span className={`px-2 py-0.5 text-[10px] uppercase font-bold rounded ${BADGE_COLORS[idx % BADGE_COLORS.length]}`}>
                     {material.classLevel}
                   </span>
-                  <span className="px-2 py-0.5 text-[10px] uppercase font-bold rounded bg-white dark:bg-slate-900/20 text-white">
+                  <span className={`px-2 py-0.5 text-[10px] uppercase font-bold rounded ${BADGE_COLORS[idx % BADGE_COLORS.length]}`}>
                     {material.subject}
                   </span>
                 </div>
@@ -208,7 +208,7 @@ export function Materials() {
 
                 <Link
                   to={`/material/${material.id}`}
-                  className="mt-auto flex items-center justify-center w-full text-xs font-bold py-2 rounded transition-colors bg-white dark:bg-slate-900/20 text-white hover:bg-white dark:bg-slate-900/30 relative z-10"
+                  className={`mt-auto flex items-center justify-center w-full text-xs font-bold py-2 rounded transition-colors relative z-10 ${BUTTON_COLORS[idx % BUTTON_COLORS.length]}`}
                 >
                   View Details
                 </Link>

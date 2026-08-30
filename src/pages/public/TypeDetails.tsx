@@ -49,7 +49,7 @@ export function TypeDetails() {
               </div>
               <h2 className="relative z-10 font-bold text-xl mb-2 text-white">{cls.name}</h2>
               <p className="relative z-10 text-white/80 text-xs mb-4 flex-1">{cls.desc}</p>
-              <div className="relative z-10 text-white text-[11px] font-bold uppercase tracking-wider bg-white dark:bg-slate-900/20 px-3 py-1.5 rounded w-full text-center hover:bg-white dark:bg-slate-900/30 transition-colors mt-auto">
+              <div className="relative z-10 text-white text-[11px] font-bold uppercase tracking-wider bg-white/20 px-3 py-1.5 rounded w-full text-center hover:bg-white/30 transition-colors mt-auto">
                 View Files
               </div>
             </Link>

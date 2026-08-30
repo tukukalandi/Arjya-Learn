@@ -84,7 +84,7 @@ export function MaterialDetails() {
         <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
           <div className="p-8 sm:p-10 border-b border-slate-100 bg-gradient-to-r from-red-700 to-red-900 text-white">
             <div className="flex flex-wrap gap-2 mb-5">
-              <span className="px-2 py-0.5 bg-white dark:bg-slate-900/20 text-white text-[10px] font-bold rounded uppercase tracking-wide">
+              <span className="px-2 py-0.5 bg-white/20 text-white text-[10px] font-bold rounded uppercase tracking-wide">
                 {material.classLevel}
               </span>
               <span className="px-2 py-0.5 bg-red-500/40 text-red-100 text-[10px] font-bold rounded uppercase tracking-wide">
