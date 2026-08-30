@@ -29,7 +29,7 @@ export function MaterialForm() {
     subject: 'Mathematics',
     examType: 'School Examination',
     examName: '',
-    materialType: 'Chapter',
+    materialType: 'NCERT Book',
     academicYear: '2026-27',
     language: 'English',
     fileName: '',
@@ -42,7 +42,7 @@ export function MaterialForm() {
   // Basic mock categories - in a real app these would be fetched from Firestore collections
   const classes = ['Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10'];
   const subjects = ['Mathematics', 'Science', 'English', 'Hindi', 'Odia', 'Social Science', 'Computer', 'General Knowledge', 'Reasoning', 'Environmental Studies'];
-  const materialTypes = ['Chapter', 'Study Notes', 'Chapter Notes', 'Question Papers', 'Previous Year Papers', 'Model Papers', 'Practice Papers', 'Mock Tests', 'Worksheets', 'Answer Keys', 'Solutions', 'Syllabus'];
+  const materialTypes = ['NCERT Book', 'Study Notes', 'Chapter Notes', 'Question Papers', 'Previous Year Papers', 'Model Papers', 'Practice Papers', 'Mock Tests', 'Worksheets', 'Answer Keys', 'Solutions', 'Syllabus'];
   const examTypes = ['School Examination', 'Olympiad', 'Competitive', 'Other'];
   const languages = ['English', 'Hindi', 'Odia', 'Other'];
 
@@ -309,7 +309,11 @@ export function MaterialForm() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-700">Exam Name (e.g. IMO)</label>
+              {formData.materialType === "NCERT Book" ? (
+                <label className="block text-sm font-medium text-slate-700">Chapter No.</label>
+              ) : (
+                <label className="block text-sm font-medium text-slate-700">Exam Name (e.g. IMO)</label>
+              )}
               <input type="text" name="examName" value={formData.examName} onChange={handleChange} className="mt-1 block w-full rounded-md border-slate-300 border py-2 px-3 shadow-sm focus:border-red-500 focus:ring-red-500 sm:text-sm" />
             </div>
           </div>

@@ -15,7 +15,7 @@ export function Home() {
   };
 
   const classes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const materialTypes = ['Chapter', 'Study Notes', 'Chapter Notes', 'Question Papers', 'Previous Year Papers', 'Model Papers', 'Practice Papers', 'Mock Tests', 'Worksheets', 'Answer Keys', 'Solutions', 'Syllabus'];
+  const materialTypes = ['NCERT Book', 'Study Notes', 'Chapter Notes', 'Question Papers', 'Previous Year Papers', 'Model Papers', 'Practice Papers', 'Mock Tests', 'Worksheets', 'Answer Keys', 'Solutions', 'Syllabus'];
 
   return (
     <div>

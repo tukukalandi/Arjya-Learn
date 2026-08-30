@@ -111,7 +111,7 @@ export function MaterialDetails() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
                     <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Type</span>
-                    <span className="font-semibold text-sm text-slate-800 dark:text-slate-100 flex items-center"><Book className="w-4 h-4 mr-1.5 text-red-600" /> {material.materialType === 'Question Paper' ? 'Chapter' : material.materialType}</span>
+                    <span className="font-semibold text-sm text-slate-800 dark:text-slate-100 flex items-center"><Book className="w-4 h-4 mr-1.5 text-red-600" /> {material.materialType === 'Chapter' ? 'NCERT Book' : material.materialType}</span>
                   </div>
                   <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
                     <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Academic Year</span>
@@ -123,7 +123,7 @@ export function MaterialDetails() {
                   </div>
                   {material.examName && (
                     <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
-                      <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">Exam Name</span>
+                      <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">{material.materialType === 'NCERT Book' || material.materialType === 'Chapter' ? 'Chapter No.' : 'Exam Name'}</span>
                       <span className="font-semibold text-sm text-slate-800 dark:text-slate-100">{material.examName}</span>
                     </div>
                   )}

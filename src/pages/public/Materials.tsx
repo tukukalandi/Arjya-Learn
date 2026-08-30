@@ -32,7 +32,7 @@ export function Materials() {
   const classes = ['All', 'Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10'];
   const subjects = ['All', 'Mathematics', 'Science', 'English', 'Hindi', 'Odia', 'Social Science', 'Computer', 'General Knowledge', 'Reasoning', 'Environmental Studies'];
   const examTypes = ['All', 'School Examination', 'Olympiad', 'Competitive', 'Other'];
-  const materialTypes = ['All', 'Chapter', 'Study Notes', 'Chapter Notes', 'Question Papers', 'Previous Year Papers', 'Model Papers', 'Practice Papers', 'Mock Tests', 'Worksheets', 'Answer Keys', 'Solutions', 'Syllabus'];
+  const materialTypes = ['All', 'NCERT Book', 'Study Notes', 'Chapter Notes', 'Question Papers', 'Previous Year Papers', 'Model Papers', 'Practice Papers', 'Mock Tests', 'Worksheets', 'Answer Keys', 'Solutions', 'Syllabus'];
 
   useEffect(() => {
     const fetchMaterials = async () => {
@@ -82,7 +82,7 @@ export function Materials() {
       const matchClass = classFilter === 'All' || m.classLevel?.trim().toLowerCase() === classFilter.trim().toLowerCase();
       const matchSubject = subjectFilter === 'All' || m.subject?.trim().toLowerCase() === subjectFilter.trim().toLowerCase();
       const matchExam = examFilter === 'All' || m.examType?.trim().toLowerCase() === examFilter.trim().toLowerCase();
-      const matchType = typeFilter === 'All' || m.materialType?.trim().toLowerCase() === typeFilter.trim().toLowerCase() || (typeFilter === 'Chapter' && m.materialType === 'Question Paper');
+      const matchType = typeFilter === 'All' || m.materialType?.trim().toLowerCase() === typeFilter.trim().toLowerCase() || (typeFilter === 'NCERT Book' && (m.materialType === 'Chapter' || m.materialType === 'NCERT Book'));
 
       return matchSearch && matchClass && matchSubject && matchExam && matchType;
     });
@@ -202,7 +202,7 @@ export function Materials() {
                 <p className="text-white/80 text-xs mb-5 line-clamp-2 flex-grow relative z-10">{material.description}</p>
                 
                 <div className="flex items-center justify-between text-[11px] font-bold text-white/70 mb-4 uppercase tracking-wide relative z-10">
-                  <span className="flex items-center"><Book className="w-3.5 h-3.5 mr-1" /> {material.materialType === 'Question Paper' ? 'Chapter' : material.materialType}</span>
+                  <span className="flex items-center"><Book className="w-3.5 h-3.5 mr-1" /> {material.materialType === 'Chapter' ? 'NCERT Book' : material.materialType}</span>
                   <span>{format(new Date(material.createdAt), 'MMM yyyy')}</span>
                 </div>
 

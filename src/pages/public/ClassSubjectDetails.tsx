@@ -8,7 +8,7 @@ export function ClassSubjectDetails() {
   const navigate = useNavigate();
   
   const materialTypes = [
-    'All Materials', 'Chapter', 'Study Notes', 'Chapter Notes', 'Question Papers', 
+    'All Materials', 'NCERT Book', 'Study Notes', 'Chapter Notes', 'Question Papers', 
     'Previous Year Papers', 'Model Papers', 'Practice Papers', 
     'Mock Tests', 'Worksheets', 'Answer Keys', 'Solutions', 'Syllabus'
   ];
