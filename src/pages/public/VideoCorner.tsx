@@ -46,6 +46,7 @@ export function VideoCorner() {
         <Route path="/:p1/:p2/:p3" element={<Level3 videos={videos} />} />
         <Route path="/:p1/:p2/:p3/:p4" element={<Level4 videos={videos} />} />
         <Route path="/:p1/:p2/:p3/:p4/:videoSlug" element={<VideoPlayer videos={videos} />} />
+        <Route path="/:p1/:p2/:p3/:p4/:p5/:videoSlug" element={<VideoPlayer videos={videos} />} />
       </Routes>
     </div>
   );
