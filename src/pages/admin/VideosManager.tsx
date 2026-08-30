@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { collection, query, getDocs, deleteDoc, doc, addDoc, serverTimestamp, orderBy } from 'firebase/firestore';
+import { collection, query, getDocs, deleteDoc, doc, addDoc, updateDoc, serverTimestamp, orderBy } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../../lib/firebase';
 import { Video } from '../../types';
-import { Trash2, Plus, Play, ExternalLink, Video as VideoIcon, UploadCloud, X } from 'lucide-react';
+import { Trash2, Plus, Play, ExternalLink, Video as VideoIcon, UploadCloud, X, Edit2 } from 'lucide-react';
 
 export function VideosManager() {
   const [videos, setVideos] = useState<Video[]>([]);
   const [loading, setLoading] = useState(true);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   
   const [formData, setFormData] = useState({
     categoryType: 'Class' as Video['categoryType'],
@@ -41,6 +42,23 @@ export function VideosManager() {
   useEffect(() => {
     fetchVideos();
   }, []);
+
+  const handleEdit = (video: Video) => {
+    setEditingId(video.id || null);
+    setFormData({
+      categoryType: video.categoryType,
+      classOrExam: video.classOrExam,
+      subject: video.subject,
+      chapter: video.chapter,
+      title: video.title,
+      description: video.description || '',
+      videoUrl: video.videoUrl
+    });
+    setVideoFile(null);
+    setUploadProgress(0);
+    setErrorMsg('');
+    setIsFormOpen(true);
+  };
 
   const handleDelete = async (id: string) => {
     if (window.confirm('Are you sure you want to delete this video?')) {
@@ -115,7 +133,7 @@ export function VideosManager() {
         });
       }
 
-      const newVideo = {
+      const videoData = {
         categoryType: formData.categoryType,
         classOrExam: formData.classOrExam,
         subject: formData.subject,
@@ -123,19 +141,29 @@ export function VideosManager() {
         title: formData.title,
         description: formData.description,
         videoUrl: finalVideoUrl,
-        status: 'published',
-        createdAt: new Date().toISOString()
+        status: 'published' as const,
       };
 
-      await addDoc(collection(db, 'videos'), newVideo);
+      if (editingId) {
+        await updateDoc(doc(db, 'videos', editingId), {
+          ...videoData,
+          updatedAt: new Date().toISOString()
+        });
+      } else {
+        await addDoc(collection(db, 'videos'), {
+          ...videoData,
+          createdAt: new Date().toISOString()
+        });
+      }
       
       // Reset form
       setFormData({ categoryType: 'Class', classOrExam: '', subject: '', chapter: '', title: '', description: '', videoUrl: '' });
       setVideoFile(null);
       setUploadProgress(0);
       setIsFormOpen(false);
+      setEditingId(null);
       fetchVideos();
-      alert('Video uploaded successfully!');
+      alert(editingId ? 'Video updated successfully!' : 'Video uploaded successfully!');
     } catch (error) {
       console.error("Error adding video:", error);
       setErrorMsg('Failed to add video. Please try again.');
@@ -159,7 +187,14 @@ export function VideosManager() {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-slate-800">Manage Videos</h1>
         <button
-          onClick={() => setIsFormOpen(!isFormOpen)}
+          onClick={() => {
+            if (isFormOpen) {
+              setEditingId(null);
+              setFormData({ categoryType: 'Class', classOrExam: '', subject: '', chapter: '', title: '', description: '', videoUrl: '' });
+              setVideoFile(null);
+            }
+            setIsFormOpen(!isFormOpen);
+          }}
           className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition-colors flex items-center"
         >
           {isFormOpen ? 'Cancel' : <><Plus className="w-4 h-4 mr-2" /> Upload Video</>}
@@ -168,7 +203,7 @@ export function VideosManager() {
 
       {isFormOpen && (
         <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-sm mb-8 border border-slate-200">
-          <h2 className="text-lg font-bold mb-4 text-slate-800">Upload New Video</h2>
+          <h2 className="text-lg font-bold mb-4 text-slate-800">{editingId ? 'Edit Video' : 'Upload New Video'}</h2>
           
           {errorMsg && (
             <div className="bg-red-50 text-red-600 p-3 rounded-md mb-4 text-sm">
@@ -366,7 +401,10 @@ export function VideosManager() {
                 <td className="p-4 text-sm text-slate-500">
                   {new Date(video.createdAt).toLocaleDateString()}
                 </td>
-                <td className="p-4 text-right">
+                <td className="p-4 text-right whitespace-nowrap">
+                  <button onClick={() => handleEdit(video)} className="text-blue-500 hover:bg-blue-50 p-2 rounded-md transition-colors mr-2">
+                    <Edit2 className="w-4 h-4" />
+                  </button>
                   <button onClick={() => video.id && handleDelete(video.id)} className="text-red-500 hover:bg-red-50 p-2 rounded-md transition-colors">
                     <Trash2 className="w-4 h-4" />
                   </button>

@@ -3,7 +3,7 @@ import { Routes, Route, useParams, Link, useNavigate, useLocation } from 'react-
 import { collection, query, getDocs, orderBy, where } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { Video } from '../../types';
-import { Play, Youtube, ChevronRight, Video as VideoIcon, BookOpen, Layers, Award } from 'lucide-react';
+import { Play, Youtube, ChevronRight, Video as VideoIcon, BookOpen, Layers, Award, LayoutGrid } from 'lucide-react';
 
 // Utility for URL slugs
 const toSlug = (text: string) => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
@@ -59,6 +59,34 @@ const extractYoutubeId = (url: string) => {
   return (match && match[2].length === 11) ? match[2] : null;
 };
 
+const CARD_THEMES = [
+  { leftBg: 'bg-[#BA312E]', rightBg: 'bg-[#DA433E]', iconText: 'text-[#BA312E]' },
+  { leftBg: 'bg-[#18665A]', rightBg: 'bg-[#29917A]', iconText: 'text-[#18665A]' },
+  { leftBg: 'bg-[#48289F]', rightBg: 'bg-[#6439C7]', iconText: 'text-[#48289F]' },
+  { leftBg: 'bg-[#2662BB]', rightBg: 'bg-[#4089DE]', iconText: 'text-[#2662BB]' },
+  { leftBg: 'bg-[#D76C1B]', rightBg: 'bg-[#F48D31]', iconText: 'text-[#D76C1B]' },
+];
+
+function CategoryCard({ title, subtitle, to, index }: { title: string, subtitle: string, to: string, index: number }) {
+  const theme = CARD_THEMES[index % CARD_THEMES.length];
+  return (
+    <Link to={to} className="flex rounded-md overflow-hidden shadow-sm hover:shadow-md transition-transform hover:-translate-y-1 h-24">
+      <div className={`${theme.leftBg} w-20 sm:w-24 flex items-center justify-center flex-shrink-0`}>
+        <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full flex items-center justify-center">
+          <LayoutGrid className={`w-5 h-5 sm:w-6 sm:h-6 ${theme.iconText}`} strokeWidth={2} />
+        </div>
+      </div>
+      <div className={`${theme.rightBg} flex-1 p-4 flex items-center justify-between min-w-0`}>
+        <div className="truncate pr-2">
+          <h3 className="text-white font-bold text-sm sm:text-base mb-1 truncate">{title}</h3>
+          <p className="text-white/80 text-[10px] sm:text-xs font-bold uppercase tracking-wider truncate">{subtitle}</p>
+        </div>
+        <ChevronRight className="w-4 h-4 text-white/50 flex-shrink-0" />
+      </div>
+    </Link>
+  );
+}
+
 // --- Breadcrumbs Component ---
 function Breadcrumbs({ paths }: { paths: { name: string, url: string }[] }) {
   return (
@@ -100,11 +128,15 @@ function Landing({ videos }: { videos: Video[] }) {
           <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center">
             <BookOpen className="w-5 h-5 mr-2 text-red-600" /> Classes
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {classes.map(c => (
-              <Link key={c} to={`/video-corner/${toSlug(c)}`} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-slate-200 transition-all text-center group hover:border-red-200">
-                <h3 className="font-bold text-slate-700 group-hover:text-red-600">{c}</h3>
-              </Link>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+            {classes.map((c, i) => (
+              <CategoryCard 
+                key={c} 
+                to={`/video-corner/${toSlug(c)}`} 
+                title={c} 
+                subtitle={`${classVideos.filter(v => v.classOrExam === c).length} ITEMS IN CATEGORY`} 
+                index={i} 
+              />
             ))}
           </div>
         </div>
@@ -115,11 +147,15 @@ function Landing({ videos }: { videos: Video[] }) {
           <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center">
             <Layers className="w-5 h-5 mr-2 text-red-600" /> Competitive Exams
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {comps.map(c => (
-              <Link key={c} to={`/video-corner/competitive/${toSlug(c)}`} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-slate-200 transition-all text-center group hover:border-red-200">
-                <h3 className="font-bold text-slate-700 group-hover:text-red-600">{c}</h3>
-              </Link>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+            {comps.map((c, i) => (
+              <CategoryCard 
+                key={c} 
+                to={`/video-corner/competitive/${toSlug(c)}`} 
+                title={c} 
+                subtitle={`${compVideos.filter(v => v.classOrExam === c).length} ITEMS IN CATEGORY`} 
+                index={i} 
+              />
             ))}
           </div>
         </div>
@@ -130,11 +166,15 @@ function Landing({ videos }: { videos: Video[] }) {
           <h2 className="text-xl font-bold text-slate-800 mb-6 flex items-center">
             <Award className="w-5 h-5 mr-2 text-red-600" /> Olympiad Exams
           </h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {olyms.map(c => (
-              <Link key={c} to={`/video-corner/olympiad/${toSlug(c)}`} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-slate-200 transition-all text-center group hover:border-red-200">
-                <h3 className="font-bold text-slate-700 group-hover:text-red-600">{c}</h3>
-              </Link>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+            {olyms.map((c, i) => (
+              <CategoryCard 
+                key={c} 
+                to={`/video-corner/olympiad/${toSlug(c)}`} 
+                title={c} 
+                subtitle={`${olymVideos.filter(v => v.classOrExam === c).length} ITEMS IN CATEGORY`} 
+                index={i} 
+              />
             ))}
           </div>
         </div>
@@ -155,11 +195,15 @@ function Level1({ videos }: { videos: Video[] }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Breadcrumbs paths={[{name: 'Competitive Exams', url: `/video-corner/competitive`}]} />
         <h1 className="text-3xl font-bold text-slate-900 mb-8">Competitive Exams</h1>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-          {comps.map(c => (
-            <Link key={c} to={`/video-corner/competitive/${toSlug(c)}`} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-slate-200 text-center group">
-              <h3 className="font-bold text-slate-700 group-hover:text-red-600">{c}</h3>
-            </Link>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+          {comps.map((c, i) => (
+            <CategoryCard 
+              key={c} 
+              to={`/video-corner/competitive/${toSlug(c)}`} 
+              title={c} 
+              subtitle={`${compVideos.filter(v => v.classOrExam === c).length} ITEMS IN CATEGORY`} 
+              index={i} 
+            />
           ))}
         </div>
       </div>
@@ -173,11 +217,15 @@ function Level1({ videos }: { videos: Video[] }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Breadcrumbs paths={[{name: 'Olympiad Exams', url: `/video-corner/olympiad`}]} />
         <h1 className="text-3xl font-bold text-slate-900 mb-8">Olympiad Exams</h1>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-          {olyms.map(c => (
-            <Link key={c} to={`/video-corner/olympiad/${toSlug(c)}`} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-slate-200 text-center group">
-              <h3 className="font-bold text-slate-700 group-hover:text-red-600">{c}</h3>
-            </Link>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+          {olyms.map((c, i) => (
+            <CategoryCard 
+              key={c} 
+              to={`/video-corner/olympiad/${toSlug(c)}`} 
+              title={c} 
+              subtitle={`${olymVideos.filter(v => v.classOrExam === c).length} ITEMS IN CATEGORY`} 
+              index={i} 
+            />
           ))}
         </div>
       </div>
@@ -199,20 +247,18 @@ function Level1({ videos }: { videos: Video[] }) {
       {subjects.length === 0 ? (
         <div className="bg-white p-12 text-center rounded-xl shadow-sm text-slate-500">No subjects available yet.</div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {subjects.map(subj => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+          {subjects.map((subj, i) => {
             const subjVideos = classVideos.filter(v => v.subject === subj);
             const chaptersCount = new Set(subjVideos.map(v => v.chapter)).size;
             return (
-              <Link key={subj} to={`/video-corner/${p1}/${toSlug(subj)}`} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-slate-200 group flex items-center">
-                <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mr-4 group-hover:bg-red-100 transition-colors">
-                  <BookOpen className="w-6 h-6 text-red-600" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-slate-800 group-hover:text-red-600 transition-colors">{subj}</h3>
-                  <p className="text-xs text-slate-500 mt-1">{chaptersCount} Chapters | {subjVideos.length} Videos</p>
-                </div>
-              </Link>
+              <CategoryCard 
+                key={subj} 
+                to={`/video-corner/${p1}/${toSlug(subj)}`} 
+                title={subj} 
+                subtitle={`${chaptersCount} CHAPTERS`} 
+                index={i} 
+              />
             );
           })}
         </div>
@@ -244,20 +290,18 @@ function Level2({ videos }: { videos: Video[] }) {
         {subjects.length === 0 ? (
           <div className="bg-white p-12 text-center rounded-xl shadow-sm text-slate-500">No subjects available yet.</div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {subjects.map(subj => {
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+            {subjects.map((subj, i) => {
               const subjVideos = examVideos.filter(v => v.subject === subj);
               const chaptersCount = new Set(subjVideos.map(v => v.chapter)).size;
               return (
-                <Link key={subj} to={`/video-corner/${p1}/${p2}/${toSlug(subj)}`} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-slate-200 group flex items-center">
-                  <div className="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center mr-4 group-hover:bg-red-100">
-                    <BookOpen className="w-6 h-6 text-red-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-800 group-hover:text-red-600">{subj}</h3>
-                    <p className="text-xs text-slate-500 mt-1">{chaptersCount} Chapters | {subjVideos.length} Videos</p>
-                  </div>
-                </Link>
+                <CategoryCard 
+                  key={subj} 
+                  to={`/video-corner/${p1}/${p2}/${toSlug(subj)}`} 
+                  title={subj} 
+                  subtitle={`${chaptersCount} CHAPTERS`} 
+                  index={i} 
+                />
               );
             })}
           </div>
@@ -284,17 +328,17 @@ function Level2({ videos }: { videos: Video[] }) {
       {chapters.length === 0 ? (
         <div className="bg-white p-12 text-center rounded-xl shadow-sm text-slate-500">No chapters available yet.</div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {chapters.map(chap => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+          {chapters.map((chap, i) => {
             const chapVideos = classVideos.filter(v => v.chapter === chap);
             return (
-              <Link key={chap} to={`/video-corner/${p1}/${p2}/${toSlug(chap)}`} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-slate-200 group flex justify-between items-center">
-                <div>
-                  <h3 className="font-bold text-slate-800 group-hover:text-red-600">{chap}</h3>
-                  <p className="text-xs text-slate-500 mt-1">{chapVideos.length} Videos</p>
-                </div>
-                <ChevronRight className="w-5 h-5 text-slate-300 group-hover:text-red-500" />
-              </Link>
+              <CategoryCard 
+                key={chap} 
+                to={`/video-corner/${p1}/${p2}/${toSlug(chap)}`} 
+                title={chap} 
+                subtitle={`${chapVideos.length} VIDEOS`} 
+                index={i} 
+              />
             );
           })}
         </div>
@@ -328,17 +372,17 @@ function Level3({ videos }: { videos: Video[] }) {
         {chapters.length === 0 ? (
           <div className="bg-white p-12 text-center rounded-xl shadow-sm text-slate-500">No chapters available yet.</div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {chapters.map(chap => {
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+            {chapters.map((chap, i) => {
               const chapVideos = subjVideos.filter(v => v.chapter === chap);
               return (
-                <Link key={chap} to={`/video-corner/${p1}/${p2}/${p3}/${toSlug(chap)}`} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md border border-slate-200 group flex justify-between items-center">
-                  <div>
-                    <h3 className="font-bold text-slate-800 group-hover:text-red-600">{chap}</h3>
-                    <p className="text-xs text-slate-500 mt-1">{chapVideos.length} Videos</p>
-                  </div>
-                  <ChevronRight className="w-5 h-5 text-slate-300 group-hover:text-red-500" />
-                </Link>
+                <CategoryCard 
+                  key={chap} 
+                  to={`/video-corner/${p1}/${p2}/${p3}/${toSlug(chap)}`} 
+                  title={chap} 
+                  subtitle={`${chapVideos.length} VIDEOS`} 
+                  index={i} 
+                />
               );
             })}
           </div>
