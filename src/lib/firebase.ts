@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { initializeFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
@@ -19,8 +19,9 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
 // Initialize Cloud Firestore and get a reference to the service
-export const db = getFirestore(app, "ai-studio-5a950ff3-89b9-40a0-beb5-a8238168aa4b");
+export const db = initializeFirestore(app, {
+  experimentalForceLongPolling: true
+}, "ai-studio-5a950ff3-89b9-40a0-beb5-a8238168aa4b");
 
 // Initialize Cloud Storage
 export const storage = getStorage(app);
-

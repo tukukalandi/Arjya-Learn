@@ -37,3 +37,16 @@ export interface Video {
   createdAt: string;
   updatedAt?: string;
 }
+
+export interface Quiz {
+  id?: string;
+  classLevel: string;
+  subject: string;
+  chapter: string;
+  topic: string;
+  htmlContent: string;
+  fileName: string;
+  createdAt: string;
+  updatedAt: string;
+  isPublished: boolean;
+}

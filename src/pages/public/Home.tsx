@@ -1,11 +1,28 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Search, Book, Trophy, FileText, ArrowRight } from 'lucide-react';
+import { Search, Book, Trophy, FileText, ArrowRight, HelpCircle } from 'lucide-react';
+import { collection, query, getDocs, orderBy, limit } from 'firebase/firestore';
+import { db } from '../../lib/firebase';
+import { Quiz } from '../../types';
 import { CARD_COLORS, BUTTON_COLORS, TEXT_COLORS, BADGE_COLORS } from '../../utils/colors';
 
 export function Home() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [recentQuizzes, setRecentQuizzes] = useState<Quiz[]>([]);
   const navigate = useNavigate();
+
+  React.useEffect(() => {
+    const fetchQuizzes = async () => {
+      try {
+        const q = query(collection(db, 'quizzes'), orderBy('createdAt', 'desc'), limit(4));
+        const snapshot = await getDocs(q);
+        setRecentQuizzes(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Quiz)));
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchQuizzes();
+  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -116,6 +133,50 @@ export function Home() {
         </div>
       </section>
 
+      
+      {/* Quiz Section */}
+      <section className="py-12 bg-[#F8FAFC] dark:bg-slate-950 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+              <span className="w-1.5 h-6 bg-red-600 rounded-full"></span> 
+              Quiz Section
+            </h2>
+            <Link to="/quizzes" className="text-sm text-red-600 dark:text-red-500 font-semibold hover:underline">
+              View All Quizzes
+            </Link>
+          </div>
+          
+          {recentQuizzes.length === 0 ? (
+            <div className="bg-white dark:bg-slate-900 p-8 text-center rounded-xl shadow-sm border border-slate-200 dark:border-slate-800">
+              <HelpCircle className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+              <p className="text-slate-500 dark:text-slate-400 text-sm">No quizzes available right now. Check back later!</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {recentQuizzes.map((quiz, idx) => (
+                <Link
+                  key={quiz.id}
+                  to={`/quiz/${quiz.id}`}
+                  className={`relative overflow-hidden rounded-sm p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-start justify-center min-h-[140px] group ${CARD_COLORS[idx % CARD_COLORS.length]}`}
+                >
+                  <div className="absolute -right-4 top-1/2 -translate-y-1/2 opacity-20 group-hover:scale-110 group-hover:opacity-30 transition-all duration-300">
+                    <HelpCircle className="w-24 h-24 text-white" strokeWidth={1.5} />
+                  </div>
+                  <div className="relative z-10 font-bold text-xl mb-1 text-white line-clamp-1">{quiz.topic}</div>
+                  <div className="relative z-10 text-white/90 text-[11px] font-bold uppercase tracking-wider mb-3 line-clamp-1">
+                    {quiz.classLevel} - {quiz.subject}
+                  </div>
+                  <div className="relative z-10 text-white font-semibold text-xs mt-auto inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                    Attempt Quiz <ArrowRight className="w-3 h-3" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+      
       {/* Olympiad Highlight */}
       <section className="py-12 bg-white dark:bg-slate-900 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8">

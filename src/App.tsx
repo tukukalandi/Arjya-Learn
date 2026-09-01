@@ -14,6 +14,8 @@ import { Olympiad } from './pages/public/Olympiad';
 import { Materials } from './pages/public/Materials';
 import { MaterialDetails } from './pages/public/MaterialDetails';
 import { VideoCorner } from './pages/public/VideoCorner';
+import { Quizzes } from './pages/public/Quizzes';
+import { QuizDetails } from './pages/public/QuizDetails';
 import { Login } from './pages/Login';
 
 // Admin Pages
@@ -23,6 +25,7 @@ import { MaterialForm } from './pages/admin/MaterialForm';
 import { CategoriesManager } from './pages/admin/CategoriesManager';
 import { AdminsManager } from './pages/admin/AdminsManager';
 import { VideosManager } from './pages/admin/VideosManager';
+import { QuizManager } from './pages/admin/QuizManager';
 
 export default function App() {
   return (
@@ -39,6 +42,8 @@ export default function App() {
           <Route path="/materials" element={<PublicLayout><Materials /></PublicLayout>} />
           <Route path="/material/:id" element={<PublicLayout><MaterialDetails /></PublicLayout>} />
           <Route path="/video-corner/*" element={<PublicLayout><VideoCorner /></PublicLayout>} />
+          <Route path="/quizzes" element={<PublicLayout><Quizzes /></PublicLayout>} />
+          <Route path="/quiz/:id" element={<PublicLayout><QuizDetails /></PublicLayout>} />
           <Route path="/login" element={<Login />} />
 
           {/* Admin Routes */}
@@ -65,6 +70,11 @@ export default function App() {
           <Route path="/admin/categories" element={
             <ProtectedRoute>
               <AdminLayout><CategoriesManager /></AdminLayout>
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/quiz" element={
+            <ProtectedRoute>
+              <AdminLayout><QuizManager /></AdminLayout>
             </ProtectedRoute>
           } />
           <Route path="/admin/videos" element={

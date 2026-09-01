@@ -22,6 +22,11 @@ service cloud.firestore {
       allow write: if isAdmin(); 
     }
     
+    match /quizzes/{document=**} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    
     match /admins/{userId} {
       allow read: if true; 
       allow write: if isAdmin() || (request.auth != null && request.auth.token.email == 'tukukalandi@gmail.com');

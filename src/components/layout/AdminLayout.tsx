@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
+  HelpCircle,
   LayoutDashboard, 
   FileText, 
   Tags, 
@@ -26,6 +27,7 @@ export function AdminLayout({ children }: { children: ReactNode }) {
     { name: 'Study Materials', href: '/admin/materials', icon: FileText },
     { name: 'Categories', href: '/admin/categories', icon: Tags },
     { name: 'Videos Corner', href: '/admin/videos', icon: Video },
+    { name: 'Quiz', href: '/admin/quiz', icon: HelpCircle },
     { name: 'Admins', href: '/admin/admins', icon: Users },
   ];
 

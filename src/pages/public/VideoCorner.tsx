@@ -68,7 +68,7 @@ const CARD_THEMES = [
   { leftBg: 'bg-[#D76C1B]', rightBg: 'bg-[#F48D31]', iconText: 'text-[#D76C1B]' },
 ];
 
-function CategoryCard({ title, subtitle, to, index }: { title: string, subtitle: string, to: string, index: number }) {
+function CategoryCard({ title, subtitle, to, index, key }: { title: string, subtitle: string, to: string, index: number, key?: string }) {
   const theme = CARD_THEMES[index % CARD_THEMES.length];
   return (
     <Link to={to} className="flex rounded-md overflow-hidden shadow-sm hover:shadow-md transition-transform hover:-translate-y-1 h-24">
