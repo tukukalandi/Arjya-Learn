@@ -3,6 +3,7 @@ import { collection, query, getDocs, deleteDoc, doc, addDoc, updateDoc, serverTi
 import { db } from '../../lib/firebase';
 import { Quiz } from '../../types';
 import { Trash2, Plus, ExternalLink, UploadCloud, X, Edit2, HelpCircle, Code } from 'lucide-react';
+import { getSubjectsForClass } from '../../utils/subjects';
 
 export function QuizManager() {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
@@ -182,19 +183,29 @@ export function QuizManager() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Class *</label>
-                <input 
-                  required type="text" placeholder="e.g. Class 10" 
+                <select 
+                  required 
                   value={formData.classLevel} onChange={e => setFormData({...formData, classLevel: e.target.value})}
                   className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-red-500 focus:ring-red-500" 
-                />
+                >
+                  <option value="">Select Class</option>
+                  {['Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10', 'Class 11', 'Class 12'].map(c => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Subject *</label>
-                <input 
-                  required type="text" placeholder="e.g. Science"
+                <select 
+                  required 
                   value={formData.subject} onChange={e => setFormData({...formData, subject: e.target.value})}
                   className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:border-red-500 focus:ring-red-500" 
-                />
+                >
+                  <option value="">Select Subject</option>
+                  {getSubjectsForClass(formData.classLevel).map(s => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </select>
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Chapter *</label>

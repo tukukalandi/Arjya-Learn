@@ -4,6 +4,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../../lib/firebase';
 import { Video } from '../../types';
 import { Trash2, Plus, Play, ExternalLink, Video as VideoIcon, UploadCloud, X, Edit2 } from 'lucide-react';
+import { getSubjectsForClass } from '../../utils/subjects';
 
 export function VideosManager() {
   const [videos, setVideos] = useState<Video[]>([]);
@@ -250,7 +251,7 @@ export function VideosManager() {
                 onChange={e => setFormData({ ...formData, subject: e.target.value })}
               >
                 <option value="">Select Subject</option>
-                {['Mathematics', 'Science', 'English', 'Social Science', 'Physics', 'Chemistry', 'Biology', 'General Knowledge', 'Reasoning', 'Quantitative Aptitude', 'General Awareness', 'Other'].map(s => (
+                {getSubjectsForClass(formData.classOrExam).map(s => (
                   <option key={s} value={s}>{s}</option>
                 ))}
               </select>

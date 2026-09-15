@@ -7,6 +7,7 @@ import { StudyMaterial } from '../../types';
 import { FileText, Filter, Book, Search, Download, ArrowLeft } from 'lucide-react';
 import { format } from 'date-fns';
 import { CARD_COLORS, BUTTON_COLORS, TEXT_COLORS, BADGE_COLORS } from '../../utils/colors';
+import { getSubjectsForClass } from '../../utils/subjects';
 
 export function Materials() {
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ export function Materials() {
   }, [searchQuery]);
 
   const classes = ['All', 'Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10'];
-  const subjects = ['All', 'Mathematics', 'Science', 'English', 'Hindi', 'Odia', 'Social Science', 'Computer', 'General Knowledge', 'Reasoning', 'Environmental Studies'];
+  const subjects = ['All', ...getSubjectsForClass(classFilter === 'All' ? '' : classFilter)];
   const examTypes = ['All', 'School Examination', 'Olympiad', 'Competitive', 'Other'];
   const materialTypes = ['All', 'NCERT Book', 'Study Notes', 'Chapter Notes', 'Question Papers', 'Previous Year Papers', 'Model Papers', 'Practice Papers', 'Mock Tests', 'Worksheets', 'Answer Keys', 'Solutions', 'Syllabus'];
 

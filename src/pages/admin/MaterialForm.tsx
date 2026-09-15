@@ -5,6 +5,7 @@ import { db } from '../../lib/firebase';
 import { useAuth } from '../../contexts/AuthContext';
 import { StudyMaterial } from '../../types';
 import { Upload, X } from 'lucide-react';
+import { getSubjectsForClass } from '../../utils/subjects';
 
 export function MaterialForm() {
   const { id } = useParams();
@@ -41,7 +42,7 @@ export function MaterialForm() {
 
   // Basic mock categories - in a real app these would be fetched from Firestore collections
   const classes = ['Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10'];
-  const subjects = ['Mathematics', 'Science', 'English', 'Hindi', 'Odia', 'Social Science', 'Computer', 'General Knowledge', 'Reasoning', 'Environmental Studies'];
+  const subjects = getSubjectsForClass(formData.classLevel);
   const materialTypes = ['NCERT Book', 'Study Notes', 'Chapter Notes', 'Question Papers', 'Previous Year Papers', 'Model Papers', 'Practice Papers', 'Mock Tests', 'Worksheets', 'Answer Keys', 'Solutions', 'Syllabus'];
   const examTypes = ['School Examination', 'Olympiad', 'Competitive', 'Other'];
   const languages = ['English', 'Hindi', 'Odia', 'Other'];
@@ -72,7 +73,7 @@ export function MaterialForm() {
     const g = (window as any).google;
     if (g?.accounts?.oauth2) {
       tokenClientRef.current = g.accounts.oauth2.initTokenClient({
-        client_id: '806441051802-9m8ko9s8uu98c02u1qpbilusmstilemq.apps.googleusercontent.com',
+        client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID || '',
         scope: 'https://www.googleapis.com/auth/drive.file',
         callback: (response: any) => {
           if (response.error !== undefined) {

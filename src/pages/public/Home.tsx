@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, Book, Trophy, FileText, ArrowRight, HelpCircle } from 'lucide-react';
-import { collection, query, getDocs, orderBy, limit } from 'firebase/firestore';
+import { collection, query, getDocs, orderBy, limit, where } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { Quiz } from '../../types';
 import { CARD_COLORS, BUTTON_COLORS, TEXT_COLORS, BADGE_COLORS } from '../../utils/colors';
@@ -9,19 +9,25 @@ import { CARD_COLORS, BUTTON_COLORS, TEXT_COLORS, BADGE_COLORS } from '../../uti
 export function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [recentQuizzes, setRecentQuizzes] = useState<Quiz[]>([]);
+  const [recentMaterials, setRecentMaterials] = useState<any[]>([]);
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    const fetchQuizzes = async () => {
+    const fetchData = async () => {
       try {
-        const q = query(collection(db, 'quizzes'), orderBy('createdAt', 'desc'), limit(4));
-        const snapshot = await getDocs(q);
-        setRecentQuizzes(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Quiz)));
+        const qQuizzes = query(collection(db, 'quizzes'), orderBy('createdAt', 'desc'), limit(4));
+        const snapshotQuizzes = await getDocs(qQuizzes);
+        setRecentQuizzes(snapshotQuizzes.docs.map(doc => ({ id: doc.id, ...doc.data() } as Quiz)));
+        
+        const qMaterials = query(collection(db, 'studyMaterials'), orderBy('updatedAt', 'desc'), limit(20));
+        const snapshotMaterials = await getDocs(qMaterials);
+        const allMats = snapshotMaterials.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setRecentMaterials(allMats.filter((m: any) => m.isPublished).slice(0, 4));
       } catch (err) {
         console.error(err);
       }
     };
-    fetchQuizzes();
+    fetchData();
   }, []);
 
   const handleSearch = (e: React.FormEvent) => {
@@ -134,6 +140,94 @@ export function Home() {
       </section>
 
       
+      
+      {/* Recent Study Materials */}
+      <section className="py-12 bg-white dark:bg-slate-900 px-4 sm:px-6 lg:px-8 transition-colors duration-200 border-t border-slate-200 dark:border-slate-800">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+              <span className="w-1.5 h-6 bg-blue-600 rounded-full"></span> 
+              Recently Added & Updated Materials
+            </h2>
+            <Link to="/materials" className="text-sm text-blue-600 dark:text-blue-500 font-semibold hover:underline">
+              View All Materials
+            </Link>
+          </div>
+          
+          {recentMaterials.length === 0 ? (
+            <div className="bg-slate-50 dark:bg-slate-800 p-8 text-center rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
+              <FileText className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+              <p className="text-slate-500 dark:text-slate-400 text-sm">No materials available right now.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {recentMaterials.map((material, idx) => (
+                <Link
+                  key={material.id}
+                  to={`/material/${material.id}`}
+                  className={`relative overflow-hidden rounded-sm p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-start justify-center min-h-[140px] group ${CARD_COLORS[(idx + 2) % CARD_COLORS.length]}`}
+                >
+                  <div className="absolute -right-4 top-1/2 -translate-y-1/2 opacity-20 group-hover:scale-110 group-hover:opacity-30 transition-all duration-300">
+                    <FileText className="w-24 h-24 text-white" strokeWidth={1.5} />
+                  </div>
+                  <div className="relative z-10 font-bold text-xl mb-1 text-white line-clamp-1">{material.title}</div>
+                  <div className="relative z-10 text-white/90 text-[11px] font-bold uppercase tracking-wider mb-3 line-clamp-1">
+                    {material.classLevel} - {material.subject}
+                  </div>
+                  <div className="relative z-10 text-white font-semibold text-xs mt-auto inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                    View Material <ArrowRight className="w-3 h-3" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      
+      {/* Recent Study Materials */}
+      <section className="py-12 bg-white dark:bg-slate-900 px-4 sm:px-6 lg:px-8 transition-colors duration-200 border-t border-slate-200 dark:border-slate-800">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2">
+              <span className="w-1.5 h-6 bg-blue-600 rounded-full"></span> 
+              Recently Added & Updated Materials
+            </h2>
+            <Link to="/materials" className="text-sm text-blue-600 dark:text-blue-500 font-semibold hover:underline">
+              View All Materials
+            </Link>
+          </div>
+          
+          {recentMaterials.length === 0 ? (
+            <div className="bg-slate-50 dark:bg-slate-800 p-8 text-center rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
+              <FileText className="w-10 h-10 text-slate-300 mx-auto mb-3" />
+              <p className="text-slate-500 dark:text-slate-400 text-sm">No materials available right now.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {recentMaterials.map((material, idx) => (
+                <Link
+                  key={material.id}
+                  to={`/material/${material.id}`}
+                  className={`relative overflow-hidden rounded-sm p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-start justify-center min-h-[140px] group ${CARD_COLORS[(idx + 2) % CARD_COLORS.length]}`}
+                >
+                  <div className="absolute -right-4 top-1/2 -translate-y-1/2 opacity-20 group-hover:scale-110 group-hover:opacity-30 transition-all duration-300">
+                    <FileText className="w-24 h-24 text-white" strokeWidth={1.5} />
+                  </div>
+                  <div className="relative z-10 font-bold text-xl mb-1 text-white line-clamp-1">{material.title}</div>
+                  <div className="relative z-10 text-white/90 text-[11px] font-bold uppercase tracking-wider mb-3 line-clamp-1">
+                    {material.classLevel} - {material.subject}
+                  </div>
+                  <div className="relative z-10 text-white font-semibold text-xs mt-auto inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                    View Material <ArrowRight className="w-3 h-3" />
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
       {/* Quiz Section */}
       <section className="py-12 bg-[#F8FAFC] dark:bg-slate-950 px-4 sm:px-6 lg:px-8 transition-colors duration-200">
         <div className="max-w-7xl mx-auto">
