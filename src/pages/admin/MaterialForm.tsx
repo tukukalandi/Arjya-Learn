@@ -70,19 +70,27 @@ export function MaterialForm() {
 
   useEffect(() => {
     // Initialize Google Identity Services
-    const g = (window as any).google;
-    if (g?.accounts?.oauth2) {
-      tokenClientRef.current = g.accounts.oauth2.initTokenClient({
-        client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID || '',
-        scope: 'https://www.googleapis.com/auth/drive.file',
-        callback: (response: any) => {
-          if (response.error !== undefined) {
-            setError('Failed to authenticate with Google Drive.');
-            return;
-          }
-          setDriveToken(response.access_token);
-        },
-      });
+    try {
+      const g = (window as any).google;
+      const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+      
+      if (g?.accounts?.oauth2 && clientId) {
+        tokenClientRef.current = g.accounts.oauth2.initTokenClient({
+          client_id: clientId,
+          scope: 'https://www.googleapis.com/auth/drive.file',
+          callback: (response: any) => {
+            if (response.error !== undefined) {
+              setError('Failed to authenticate with Google Drive.');
+              return;
+            }
+            setDriveToken(response.access_token);
+          },
+        });
+      } else if (!clientId) {
+        console.warn('Google Client ID is missing. Google Drive integration will be disabled.');
+      }
+    } catch (err) {
+      console.error('Failed to initialize Google Identity Services:', err);
     }
   }, []);
 
