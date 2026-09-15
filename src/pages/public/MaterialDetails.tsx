@@ -123,7 +123,7 @@ export function MaterialDetails() {
                   </div>
                   {material.examName && (
                     <div className="bg-slate-50 p-4 rounded-lg border border-slate-100">
-                      <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">{material.materialType === 'NCERT Book' || material.materialType === 'Chapter' ? 'Chapter No.' : 'Exam Name'}</span>
+                      <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">{material.examType === 'School Examination' || material.examType === 'Olympiad' ? 'Chapter Name / No.' : 'Exam Name'}</span>
                       <span className="font-semibold text-sm text-slate-800 dark:text-slate-100">{material.examName}</span>
                     </div>
                   )}

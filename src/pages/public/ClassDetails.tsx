@@ -2,15 +2,13 @@ import React from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { CARD_COLORS, TEXT_COLORS, BADGE_COLORS } from '../../utils/colors';
 import { ArrowLeft, Book } from 'lucide-react';
+import { getSubjectsForClass } from '../../utils/subjects';
 
 export function ClassDetails() {
   const { className } = useParams<{ className: string }>();
   const navigate = useNavigate();
   
-  const subjects = [
-    'All Subjects', 'Mathematics', 'Science', 'English', 'Hindi', 'Odia', 
-    'Social Science', 'Computer', 'General Knowledge', 'Reasoning', 'Environmental Studies'
-  ];
+  const subjects = ['All Subjects', ...getSubjectsForClass(className || '')];
 
   return (
     <div className="bg-[#F8FAFC] dark:bg-slate-950 min-h-screen py-10 px-4 sm:px-6 lg:px-8">

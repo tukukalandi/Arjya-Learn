@@ -310,8 +310,8 @@ export function MaterialForm() {
             </div>
 
             <div>
-              {formData.materialType === "NCERT Book" ? (
-                <label className="block text-sm font-medium text-slate-700">Chapter No.</label>
+              {formData.examType === "School Examination" || formData.examType === "Olympiad" ? (
+                <label className="block text-sm font-medium text-slate-700">Chapter Name or Chapter No.</label>
               ) : (
                 <label className="block text-sm font-medium text-slate-700">Exam Name (e.g. IMO)</label>
               )}
